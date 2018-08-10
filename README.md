@@ -1,5 +1,5 @@
 # BIG-DE
-BIG-DE (BioInformatics and Genomics - Differential Expression) is an open source, Shiny-based application for exploring, visualizing, and analyzing gene expression data with minimal coding required. Users can use the application in their own RNA-seq or microarray expression data, and download the results. Built-in visualization tools include box plots, heatmaps and volcano plots. Please download the sample data provided to test the application.
+BIG-DE (BioInformatics and Genomics - Differential Expression) is an open source, Shiny-based application for exploring, visualizing, and analyzing gene expression data with minimal coding required. Users can use the application in their own RNA-seq or microarray expression data, and download the results. Built-in visualization tools include box plots, heatmaps and volcano plots. Please download the sample data (expression and pheno files) provided to test the application.
 
 ## Access the application [here](http://big.bio.lsuhsc.edu:3838/) or download R files and run locally
 
