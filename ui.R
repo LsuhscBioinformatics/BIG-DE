@@ -1,7 +1,10 @@
 library("shiny")
 library(DT)
 
+#User interface 
 ui = tagList(
+  
+  #Navigation bar for different tabs
   navbarPage(
     # theme = "cerulean",  # <--- To use a theme, uncomment this
     "BIG-DE",
@@ -26,10 +29,13 @@ ui = tagList(
                  "for any queries "
                )),
                
+             #output example data 
              mainPanel(
                DT::dataTableOutput("mytable3")
              )
     ),
+    
+    #Tab for data upload
     tabPanel("Data Upload",
              sidebarPanel(
                
@@ -50,6 +56,8 @@ ui = tagList(
                
                
              ),
+             
+             #Output the uploaded file 
              mainPanel(
                
                h4("Table Header"),
@@ -57,9 +65,12 @@ ui = tagList(
                )
              
     ),
+    
+    #Tab for normalization
     tabPanel("Normalization", 
              sidebarPanel(
                
+               #Button to select the type of normalization method used
                radioButtons("norm", "Normalization Method",
                             choices = c("Raw data" = "0",
                                         "Log2" = "1",
@@ -71,20 +82,27 @@ ui = tagList(
                textInput("ybox", "Y-axis:", "Expression value"),
                downloadButton("normdata", "Download normalized data")
              ),
+             
+             #Output boxplot for the normalized method used
              mainPanel(
                plotOutput("boxplot", width = "100%", height = 600)
              )
     ),
+    
+    #Tab for D.E. analysis
     tabPanel("Differential Expression", 
              sidebarPanel(
                conditionalPanel(condition="input.tabselected==1",
                tags$h4("Differential Expression using Limma"),
                tags$hr(),
+                                
+               #Upload Pheno file for class/time variable
                fileInput("file1", "Upload Pheno File",
                          multiple = FALSE,
                          accept = c("text/csv",
                                     "text/comma-separated-values,text/plain",
                                     ".csv")),
+                                
                # Input: Checkbox if file has header ----
                checkboxInput("header1", "Header", TRUE),
                
@@ -94,8 +112,9 @@ ui = tagList(
                                         Semicolon = ";",
                                         Tab = "\t"),
                             selected = ","),
-              
+              #Title for the plot
                textInput("voltitle", "Title:", "Volcano plot"),
+              #Download button for normalized data
                downloadButton("voldata", "Download D.E. results")
                ),
                
@@ -110,6 +129,8 @@ ui = tagList(
                            choices = c("RedYellowGreen", "GreenBlue", "RedYellowBlue", "RedBlue"))
                )
              ),
+             
+             #Output Volcano plot and Heatmap
              mainPanel(
                #tableOutput("contrast"),
                tabsetPanel(type = "tabs",
@@ -120,6 +141,7 @@ ui = tagList(
              )
     ),
     
+    #Tab for variance and Heatmap
     tabPanel("Variance", 
              sidebarPanel(
                textInput("heattitle", "Title of Heatmap:", "Top 500 most variable genes across samples"),
@@ -129,6 +151,7 @@ ui = tagList(
                downloadButton("vardata", "Download top variance data")
 
              ),
+             #Output heatmap
              mainPanel(
                plotOutput("heatmap", width = "100%", height = 600)
              )
